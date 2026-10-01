@@ -160,7 +160,7 @@ int main(int argc, char* argv[]) {
     updateElement(row, col, newVal);
 
     cout.rdbuf(coutbuf);
-    outFile.close()
+    outFile.close();
 
     return 0;
 }
