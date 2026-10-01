@@ -18,7 +18,7 @@ void printMat(int mat[MAX][MAX]) {
 }
 
 // 1. Read input file
-bool readMatrices(cont char* filename) {
+bool readMatrices(cosnt char* filename) {
     ifstream file(filename);
     if (!file) {
         cout << "Error opening file: " << filename << "\n";
@@ -120,10 +120,10 @@ void updateElement(int row, int col, int newVal) {
 int main(int argc, char* argv[]) {
     const char* inputFileName = "input.txt";
     if (argc > 1){
-        inputFileName = argv[1]
+        inputFileName = argv[1];
     }
 
-    if (!readMatrices()) return 1;
+    if (!readMatrices(inputFileName)) return 1;
 
     ofstream outFile("output.txt");
     if (!outFile){
