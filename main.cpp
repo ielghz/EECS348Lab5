@@ -18,10 +18,10 @@ void printMat(int mat[MAX][MAX]) {
 }
 
 // 1. Read input file
-bool readMatrices() {
-    ifstream file("matrix_input.txt");
+bool readMatrices(cont char* filename) {
+    ifstream file(filename);
     if (!file) {
-        cout << "Error opening file.\n";
+        cout << "Error opening file: " << filename << "\n";
         return false;
     }
 
@@ -117,8 +117,21 @@ void updateElement(int row, int col, int newVal) {
     printMat(temp);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    const char* inputFileName = "input.txt";
+    if (argc > 1){
+        inputFileName = argv[1]
+    }
+
     if (!readMatrices()) return 1;
+
+    ofstream outFile("output.txt");
+    if (!outFile){
+        cout << "Error creating output file \n";
+        return 1;
+    }
+    streambuf* coutbuf = cout.rdbuf();
+    cout.rdbuf(outFile.rdbuf());
 
     cout << "=== Matrix A ===\n"; printMat(A);
     cout << "\n=== Matrix B ===\n"; printMat(B);
@@ -145,6 +158,9 @@ int main() {
     int row = 1, col = 1, newVal = 99;
     cout << "\n=== Update Position (" << row << ", " << col << ") to " << newVal << " (A) ===\n";
     updateElement(row, col, newVal);
+
+    cout.rdbuf(coutbuf);
+    outFile.close()
 
     return 0;
 }
