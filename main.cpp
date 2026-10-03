@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip> 
 
 using namespace std;
 
@@ -10,15 +11,14 @@ int A[MAX][MAX], B[MAX][MAX], C[MAX][MAX], N;
 void printMat(int mat[MAX][MAX]) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            if (mat[i][j] < 10) cout << "  " << mat[i][j] << " ";
-            else cout << " " << mat[i][j] << " ";
+            cout << setw(4) << mat[i][j] << " ";
         }
         cout << "\n";
     }
 }
 
 // 1. Read input file
-bool readMatrices(cosnt char* filename) {
+bool readMatrices(const char* filename) {
     ifstream file(filename);
     if (!file) {
         cout << "Error opening file: " << filename << "\n";
@@ -73,16 +73,13 @@ void swapRows(int r1, int r2) {
         cout << "Invalid row index\n";
         return;
     }
-    int temp[MAX][MAX];
-    for (int i = 0; i < N; i++)
-        for (int j = 0; j < N; j++) temp[i][j] = A[i][j];
-
+    
     for (int j = 0; j < N; j++) {
-        int t = temp[r1][j];
-        temp[r1][j] = temp[r2][j];
-        temp[r2][j] = t;
+        int t = A[r1][j];
+        A[r1][j] = A[r2][j];
+        A[r2][j] = t;
     }
-    printMat(temp);
+    printMat(A);
 }
 
 // 6. Swap columns
@@ -91,16 +88,13 @@ void swapColumns(int c1, int c2) {
         cout << "Invalid column index\n";
         return;
     }
-    int temp[MAX][MAX];
-    for (int i = 0; i < N; i++)
-        for (int j = 0; j < N; j++) temp[i][j] = A[i][j];
-
+    
     for (int i = 0; i < N; i++) {
-        int t = temp[i][c1];
-        temp[i][c1] = temp[i][c2];
-        temp[i][c2] = t;
+        int t = A[i][c1];
+        A[i][c1] = A[i][c2];
+        A[i][c2] = t;
     }
-    printMat(temp);
+    printMat(A);
 }
 
 // 7. Update element
@@ -109,12 +103,9 @@ void updateElement(int row, int col, int newVal) {
         cout << "Invalid position\n";
         return;
     }
-    int temp[MAX][MAX];
-    for (int i = 0; i < N; i++)
-        for (int j = 0; j < N; j++) temp[i][j] = A[i][j];
-
-    temp[row][col] = newVal;
-    printMat(temp);
+    
+    A[row][col] = newVal;
+    printMat(A);
 }
 
 int main(int argc, char* argv[]) {
